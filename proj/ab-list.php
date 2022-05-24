@@ -13,10 +13,23 @@ $totalRows = $pdo->query($t_sql)->fetch(PDO::FETCH_NUM)[0]; //索引式陣列 //
 //echo $totalRows;exit;
 $totalPages = ceil($totalRows / $perPage); //總共有幾頁 總筆數/有幾筆 ceil()無條件進位 
 
-$sql = sprintf("SELECT * FROM address_book LIMIT %s,%s", ($page - 1) * $perPage, $perPage); //0524 11:13
-//這裡是後端程式邏輯
-//把VIEW分開
-$rows = $pdo->query($sql)->fetchAll();
+
+$rows = []; //先給預設值 05/24 12:00
+
+// 有資料才做下面的事情
+if ($totalRows > 0) {
+    if ($page > $totalPages) {    //如果查看頁數大於總頁數
+        header("Location: ?page=$totalPages");  //我就轉向到最大頁數
+        exit;
+    }
+
+    $sql = sprintf("SELECT * FROM address_book LIMIT %s,%s", ($page - 1) * $perPage, $perPage); //0524 11:13
+    //這裡是後端程式邏輯
+    //把VIEW分開
+    $rows = $pdo->query($sql)->fetchAll();
+}
+
+
 
 
 ?>

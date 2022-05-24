@@ -1,5 +1,5 @@
 <?php
-
+//05/24 10:21 通訊錄CRUD 
 $db_host = 'localhost'; // 主機名稱
 $db_user = 'root'; // 資料庫連線的用戶
 $db_pass = ''; // 連線用戶的密碼

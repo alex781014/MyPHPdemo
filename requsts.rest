@@ -1,0 +1,10 @@
+GET http://localhost/demomysql/phpdemo/a20220518-08-get.php?account=Xin&password=123789
+
+
+###
+
+
+POST http://localhost/demomysql/phpdemo/a20220518-09-post.php
+Content-Type: application/x-www-form-urlencoded
+
+account=XinXin&password=789654

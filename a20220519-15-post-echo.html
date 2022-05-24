@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+</head>
+
+<body>
+    <form name="form1" onsubmit="sendData();return false;">
+        <input type="text" name="nickname" placeholder="暱稱">
+        <br>
+        <input type="text" name="account" placeholder="帳號">
+        <br>
+        <input type="text" name="password" placeholder="密碼">
+        <br>
+        <input type="submit">
+    </form>
+
+    <script>
+
+        function sendData() {
+            // 沒有外觀的表單
+            const fd = new FormData(document.form1);//會是陣列 所以用for of 
+
+            // 每一項資料 [欄位名稱, 欄位值]
+            for (let s of fd) {
+                console.log(s);
+            }
+
+
+            // const usp = new URLSearchParams(fd);//變成GET 狀況 show在headers的樣子
+            // console.log(usp.toString());
+        }
+    </script>
+</body>
+
+</html>

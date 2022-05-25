@@ -96,9 +96,9 @@ if ($totalRows > 0) {
         <tbody>
             <!-- 05/24 10:55 -->
             <?php foreach ($rows as $r) : ?>
-                <tr>
+                <tr class="tr">
                     <td>
-                        <a href="#"><i class="fa-solid fa-trash-can"></i></a>
+                        <a href="#"><i class="fa-solid fa-trash-can trash"></i></a>
                     </td>
                     <td><?= $r['sid']  ?></td>
                     <td><?= $r['name']  ?></td>
@@ -117,4 +117,12 @@ if ($totalRows > 0) {
     </table>
 </div>
 <?php include __DIR__ . '/parts/scripts.php' ?>
+<!-- <script>
+    let data = [];
+    const trash = document.querySelector(".trash");
+    trash.addEventListener("click", e => {
+        const tr = e.target.closest('tr');
+        tr.remove()
+    });
+</script> -->
 <?php include __DIR__ . '/parts/html-foot.php' ?>

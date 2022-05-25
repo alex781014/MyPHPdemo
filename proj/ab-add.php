@@ -12,7 +12,7 @@ $title = '新增通訊錄資料 - 小鑫的網站';
                 <div class="card-body">
                     <h5 class="card-title">新增資料</h5>
                     <!-- novalidate  不要用html5的檢查方式 -->
-                    <form name="form1" onsubmit="sendData();return false; novalidate">
+                    <form name="form1" onsubmit="sendData();return false;" novalidate>
                         <div class="mb-3">
                             <label for="name" class="form-label">* name</label>
                             <!-- required 必填 -->

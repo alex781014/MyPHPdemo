@@ -49,8 +49,40 @@ $title = '新增通訊錄資料 - 小鑫的網站';
 </div>
 <?php include __DIR__ . '/parts/scripts.php' ?>
 <script>
+    //TODO : 欄位檢查，前端的檢查  0525/11:50
+    const email_re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zAZ]{2,}))$/;
+    const mobile_re = /^09\d{2}-?\d{3}-?\d{3}$/;
+    const name_f = document.form1.name;
+    const email_f = document.form1.email;
+    const mobile_f = document.form1.mobile;
+
+
     async function sendData() {
         //TODO : 欄位檢查，前端的檢查
+        let isPass = true; //預設是通過檢查
+        if (name_f.value.length < 2) {
+            alert("姓名至少兩個字")
+            ispass = false;
+        }
+        // 如果你有填內容 跟 email格式不符合    test是去查詢有沒有符合raq ex 的規則
+        if (email_f.value && !email_re.test(email_f.value)) {
+            alert("email格式錯誤")
+            isPass = false;
+        }
+        if (mobile_f.value && !mobile_re.test(mobile_f.value)) {
+            alert("手機格式錯誤")
+            isPass = false;
+        }
+
+
+
+        // 如果沒有通過就直接結束 
+        if (!isPass) {
+            return;
+        }
+
+
+
         const fd = new FormData(document.form1);
         const r = await fetch('ab-add-api.php', {
             method: 'POST',

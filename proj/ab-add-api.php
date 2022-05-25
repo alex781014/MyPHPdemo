@@ -10,6 +10,7 @@ $output = [
 
 
 
+
 // TODO 欄位檢查 後端的檢查
 if (empty($_POST['name'])) {
     $output['error'] = "沒有姓名資料";
@@ -17,6 +18,24 @@ if (empty($_POST['name'])) {
     echo json_encode($output, JSON_UNESCAPED_UNICODE);
     exit;
 }
+
+$name = $_POST['name'];
+$email = $_POST['email'] ?? '';   //  ?? ''>>>要前面是undefind才丟後面的空字串 
+$mobile = $_POST['mobile'] ?? '';
+$birthday = empty($_POST['birthday']) ? NULL : $_POST['birthday'];
+$address = $_POST['address'] ?? '';
+//如果email不是空字串要檢查格式 跟 不符合格式的話 跳錯誤
+// 要檢查email 下這個 固定的常數>>>FILTER_VALIDATE_EMAIL   如果不是會回傳false 如果是會回傳篩選後的值
+if (!empty($email) and filter_var($email, FILTER_VALIDATE_EMAIL) === false) {
+    $output['error'] = "email 格式錯誤";
+    $output['code'] = 40;
+    echo json_encode($output, JSON_UNESCAPED_UNICODE);
+    exit;
+}
+//TODO:其他欄位檢查
+
+
+
 
 //SQL語法   
 $sql = "INSERT INTO `address_book`(

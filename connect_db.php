@@ -16,7 +16,6 @@ $pdo_options = [
 
 
 try {
-
     $pdo = new PDO($dsn, $db_user, $db_pass, $pdo_options);
 } catch (PDOException $ex) {  //$ex是自己決定
     echo $ex->getMessage();

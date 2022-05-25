@@ -69,7 +69,9 @@ if (isset($_POST['account'])) {
         <?php endif; ?>
 
         <form method="POST">
-            <input type="text" name="account" placeholder="帳號">
+
+            <!-- ?? 的意思 如果左邊是undefind 給右邊空字串     htmlentities($_POST['account'])>>可以將輸出的值做跳脫-->
+            <input type="text" name="account" placeholder="帳號" value="<?= isset($_POST['account']) ? htmlentities($_POST['account']) : '' ?>">
             <br>
             <input type="password" name="password" placeholder="密碼">
             <br>

@@ -122,13 +122,10 @@ if ($totalRows > 0) {
 <script>
     //5/25  10:29   //想辦法用addEventListener;
     function trashCanClicked(event) {
-        // console.log(event.currentTarget);
-        // console.log(event.target)
-        const a_tag = event.currentTarget;
-        const tr = a_tag.closest("tr");
-        // const tr = event.target.closest("tr");  //自己改的兩個合併 且用event.target就可以達成
-        console.log(tr)
-        tr.remove() //remove 刪除tr 
+        const tr = event.target.closest("tr");
+        tr.remove()
+
+
     }
 </script>
 <?php include __DIR__ . '/parts/html-foot.php' ?>

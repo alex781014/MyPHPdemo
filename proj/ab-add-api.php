@@ -1,14 +1,24 @@
 <?php
 require __DIR__ . '/parts/connect_db.php';
+header('Content-Type: application/json');
 $output = [
     'success' => false,
     'postData' => $_POST,
+    'code' => 200,
     'error' => '',
 ];
 
 
 
 // TODO 欄位檢查 後端的檢查
+if (empty($_POST['name'])) {
+    $output['error'] = "沒有姓名資料";
+    $output['code'] = 404;
+    echo json_encode($output, JSON_UNESCAPED_UNICODE);
+    exit;
+}
+
+//SQL語法   
 $sql = "INSERT INTO `address_book`(
      `name`, `email`, `mobile`,
      `birthday`, `address`, `created_at`
@@ -22,7 +32,7 @@ $stmt->execute([    //每次用execute括號內記得先給中括號
     $_POST['name'],
     $_POST['email'],
     $_POST['mobile'],
-    $_POST['birthday'],
+    empty($_POST['birthday']) ? NULL : $_POST['birthday'],
     $_POST['address'],
 ]);
 
@@ -30,8 +40,13 @@ $stmt->execute([    //每次用execute括號內記得先給中括號
 $output['success'] = $stmt->rowCount() == 1;
 if ($stmt->rowCount() == 1) {
     $output['success'] = true;
+    //最近新增資料的 primery key
+    $output['lastInsertId'] = $pdo->lastInsertId();
 } else {
     $output['error'] = "資料無法新增";
 }
+//isset() 有沒有設定 有用=號設定的都算
+//empty() 我不管你有沒有設定 是空的就是拿到true
 
+//0525 0935看一下這段
 echo json_encode($output, JSON_UNESCAPED_UNICODE);

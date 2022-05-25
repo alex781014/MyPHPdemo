@@ -50,7 +50,7 @@ $title = '新增通訊錄資料 - 小鑫的網站';
 <?php include __DIR__ . '/parts/scripts.php' ?>
 <script>
     async function sendData() {
-        //TODO : 欄位檢查
+        //TODO : 欄位檢查，前端的檢查
         const fd = new FormData(document.form1);
         const r = await fetch('ab-add-api.php', {
             method: 'POST',

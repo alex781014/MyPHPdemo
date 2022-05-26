@@ -98,7 +98,8 @@ if ($totalRows > 0) {
             <?php foreach ($rows as $r) : ?>
                 <tr class="tr">
                     <td>
-                        <a href="#"><i class="fa-solid fa-trash-can trash"></i></a>
+                        <!-- <a href="ab-delete.php?sid=<?= $r['sid'] ?>" onclick="return confirm('確定要刪除<?= $r['sid'] ?>這筆資料嗎')"><i class=" fa-solid fa-trash-can trash"></i></a> -->
+                        <a href="javascript: delete_it(<?= $r['sid'] ?>)"><i class=" fa-solid fa-trash-can trash"></i></a>
                     </td>
                     <td><?= $r['sid']  ?></td>
                     <td><?= $r['name']  ?></td>
@@ -107,7 +108,7 @@ if ($totalRows > 0) {
                     <td><?= $r['birthday']  ?></td>
                     <td><?= $r['address']  ?></td>
                     <td>
-                        <a href="#"><i class="fa-solid fa-pen-to-square"></i></a>
+                        <a href="ab-edit.php?sid=<?= $r['sid'] ?>"><i class="fa-solid fa-pen-to-square"></i></a>
                     </td>
                 </tr>
             <?php endforeach; ?>
@@ -117,12 +118,11 @@ if ($totalRows > 0) {
     </table>
 </div>
 <?php include __DIR__ . '/parts/scripts.php' ?>
-<!-- <script>
-    let data = [];
-    const trash = document.querySelector(".trash");
-    trash.addEventListener("click", e => {
-        const tr = e.target.closest('tr');
-        tr.remove()
-    });
-</script> -->
+<script>
+    function delete_it(sid) {
+        if (confirm(`確定要刪除編號為${sid}的資料嗎`)) {
+            location.href = `ab-delete.php?sid=${sid}`;
+        }
+    }
+</script>
 <?php include __DIR__ . '/parts/html-foot.php' ?>

@@ -9,4 +9,4 @@ if (!empty($_SERVER['HTTP_REFERER'])) {
     $come_from = $_SERVER['HTTP_REFERER'];
 }
 
-header('Location: ab-list.php');
+header("Location: $come_from");

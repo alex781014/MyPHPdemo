@@ -9,7 +9,7 @@ if ($page < 1) {
 }
 
 //先算總共有幾筆再算總共有幾頁
-$t_sql = "SELECT COUNT(1) FROM address_book";
+$t_sql = "SELECT COUNT(1) FROM address_book"; 
 $totalRows = $pdo->query($t_sql)->fetch(PDO::FETCH_NUM)[0]; //索引式陣列 //總筆數
 
 //echo $totalRows;exit;

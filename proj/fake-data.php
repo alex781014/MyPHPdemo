@@ -29,4 +29,4 @@ $stmt->execute([   //這裡才是真的執行
     '1987-11-23',
     '南投市'
 ]);
-echo $stmt->rowCount(); //我現在新增的筆數是多少
+echo $stmt->rowCount(); //會拿到新增的筆數是多少 有新增是1沒有是0 

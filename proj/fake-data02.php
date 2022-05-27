@@ -9,7 +9,7 @@
 
 
 
-    //放資料都是這個樣子
+    //放資料都是這個樣子 // INSERT INTO 是新增語法
     $sql = "INSERT INTO `address_book`(
      `name`, `email`, `mobile`, `birthday`, `address`, `created_at`
     ) VALUES (

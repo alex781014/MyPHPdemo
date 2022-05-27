@@ -8,7 +8,7 @@ if ($page < 1) {
     exit;
 }
 
-$t_sql = "SELECT COUNT(1)  FROM address_book"; //這拿出來只有一筆 欄位名稱叫COUNT(1)
+$t_sql = "SELECT COUNT(1)  FROM customized_products"; //這拿出來只有一筆 欄位名稱叫COUNT(1)
 $totalRows = $pdo->query($t_sql)->fetch(PDO::FETCH_NUM)[0]; //用索引式陣列抓出總筆數 因為t_sql的COUNT(1)只會有一欄 那欄裡面就是總比數用索引式陣列[0]抓出
 
 $totalPages = ceil($totalRows / $perPage); //ceil無條件進位  總共有幾頁
@@ -20,7 +20,7 @@ if (!empty($totalPages)) {  //如果有資料才往下走
         header("Location: ?page=$totalPages");
         exit;
     }
-    $sql = sprintf("SELECT * FROM address_book LIMIT %s, %s", ($page - 1) * $perPage, $perPage);
+    $sql = sprintf("SELECT * FROM customized_products LIMIT %s, %s", ($page - 1) * $perPage, $perPage);
     $rows = $pdo->query($sql)->fetchAll(); //query後會拿到PDOStatement($stmt)... 然後用->fetchAll() 的方法  記得!!這樣是陣列
 
 }
@@ -43,15 +43,24 @@ if (!empty($totalPages)) {  //如果有資料才往下走
             <nav aria-label="Page navigation example">
                 <ul class="pagination">
                     <li class="page-item <?= $page == 1 ? 'disabled' : '' ?>">
-                        <a class="page-link " href="?page=<?= $page - 1 ?>">Previous</a>
+                        <a class="page-link " href="?page=1"><i class="fa-solid fa-angles-left"></i></a>
                     </li>
-                    <?php for ($i = 1; $i <= $totalPages; $i++) : ?>
-                        <li class="page-item <?= $page == $i ? 'active' : '' ?>">
-                            <a class="page-link " href="?page=<?= $i ?>"><?= $i ?></a>
-                        </li>
-                    <?php endfor; ?>
+                    <li class="page-item <?= $page == 1 ? 'disabled' : '' ?>">
+                        <a class="page-link " href="?page=<?= $page - 1 ?>"><i class="fa-solid fa-angle-left"></i></a>
+                    </li>
+                    <?php for ($i = $page - 5; $i <= $page + 5; $i++) :
+                        if ($i >= 1 and $i <= $totalPages) :
+                    ?>
+                            <li class="page-item <?= $page == $i ? 'active' : '' ?>">
+                                <a class="page-link " href="?page=<?= $i ?>"><?= $i ?></a>
+                            </li>
+                    <?php endif;
+                    endfor; ?>
                     <li class="page-item <?= $page == $totalPages ? 'disabled' : '' ?>">
-                        <a class="page-link " href="?page=<?= $page + 1 ?>">Next</a>
+                        <a class="page-link " href="?page=<?= $page + 1 ?>"><i class="fa-solid fa-angle-right"></i></a>
+                    </li>
+                    <li class="page-item <?= $page == $totalPages ? 'disabled' : '' ?>">
+                        <a class="page-link " href="?page=<?= $totalPages ?>"><i class="fa-solid fa-angles-right"></i></a>
                     </li>
                 </ul>
             </nav>
@@ -64,16 +73,35 @@ if (!empty($totalPages)) {  //如果有資料才往下走
 
 
 
-    <table class="table table-success table-striped">
+    <table class="table table-bordered table-striped">
         <thead>
             <tr>
                 <!-- 看資料表內要呈現那些內容 -->
-                <th scope="col">#</th>
-                <th scope="col">姓名</th>
-                <th scope="col">手機</th>
-                <th scope="col">電郵</th>
-                <th scope="col">生日</th>
-                <th scope="col">地址</th>
+                <th scope="col">產品編號</th>
+                <th scope="col">品名</th>
+                <th scope="col">產品價格</th>
+                <th scope="col">產品編號</th>
+                <th scope="col">品名</th>
+                <th scope="col">產品價格</th>
+                <th scope="col">產品編號</th>
+                <th scope="col">品名</th>
+                <th scope="col">產品價格</th>
+                <th scope="col">產品編號</th>
+                <th scope="col">品名</th>
+                <th scope="col">產品價格</th>
+                <th scope="col">產品編號</th>
+                <th scope="col">品名</th>
+                <th scope="col">產品價格</th>
+                <th scope="col">圖片</th>
+                <th scope="col">介紹</th>
+                <th scope="col">清單</th>
+                <th scope="col">產地</th>
+                <th scope="col">食譜編號</th>
+                <th scope="col">分類編號</th>
+                <th scope="col">庫存</th>
+                <th scope="col">總價格</th>
+                <th scope="col">卡路里</th>
+                <th scope="col">備忘錄</th>
             </tr>
         </thead>
         <tbody>
@@ -81,13 +109,32 @@ if (!empty($totalPages)) {  //如果有資料才往下走
                 <!--這個$r代表拿到某一筆  -->
                 <!-- 然後欄位對上面資料 -->
                 <tr>
-                    <td><?= $r['sid'] ?></td>
                     <!--echo出來 這個代表某一筆的PK  以此類推-->
-                    <td><?= $r['name'] ?></td>
-                    <td><?= $r['mobile'] ?></td>
-                    <td><?= $r['email'] ?></td>
-                    <td><?= $r['birthday'] ?></td>
-                    <td><?= $r['address'] ?></td>
+                    <td><?= $r['product_id_1'] ?></td>
+                    <td><?= $r['product_name_1'] ?></td>
+                    <td><?= $r['product_price_1'] ?></td>
+                    <td><?= $r['product_id_2'] ?></td>
+                    <td><?= $r['product_name_2'] ?></td>
+                    <td><?= $r['product_price_2'] ?></td>
+                    <td><?= $r['product_id_3'] ?></td>
+                    <td><?= $r['product_name_3'] ?></td>
+                    <td><?= $r['product_price_3'] ?></td>
+                    <td><?= $r['product_id_4'] ?></td>
+                    <td><?= $r['product_name_4'] ?></td>
+                    <td><?= $r['product_price_4'] ?></td>
+                    <td><?= $r['product_id_5'] ?></td>
+                    <td><?= $r['product_name_5'] ?></td>
+                    <td><?= $r['product_price_5'] ?></td>
+                    <td><?= $r['food_img'] ?></td>
+                    <td><?= $r['food_introduce'] ?></td>
+                    <td><?= $r['food_list'] ?></td>
+                    <td><?= $r['food_Origin'] ?></td>
+                    <td><?= $r['category_sid'] ?></td>
+                    <td><?= $r['product_stock'] ?></td>
+                    <td><?= $r['reference_receipt_id'] ?></td>
+                    <td><?= $r['total_product_price'] ?></td>
+                    <td><?= $r['calorie'] ?></td>
+                    <td><?= $r['custom_remark'] ?></td>
 
                 </tr>
             <?php endforeach; ?>
